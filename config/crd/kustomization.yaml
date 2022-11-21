@@ -3,7 +3,6 @@
 # It should be run by config/default
 resources:
 - bases/my.domain_calculators.yaml
-- bases/my.domain_ices.yaml
 #+kubebuilder:scaffold:crdkustomizeresource
 
 patchesStrategicMerge:
