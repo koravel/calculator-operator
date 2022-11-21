@@ -1,0 +1,12 @@
+apiVersion: my.domain/v1alpha1
+kind: Ex
+metadata:
+  labels:
+    app.kubernetes.io/name: ex
+    app.kubernetes.io/instance: ex-sample
+    app.kubernetes.io/part-of: calculator-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: calculator-operator
+  name: ex-sample
+spec:
+  # TODO(user): Add fields here
