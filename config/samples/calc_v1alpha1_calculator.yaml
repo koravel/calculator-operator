@@ -1,0 +1,8 @@
+apiVersion: calc.example.com/v1alpha1
+kind: Calculator
+metadata:
+  name: calculator-sample
+spec:
+  size: 3
+  x: 21
+  "y": 12

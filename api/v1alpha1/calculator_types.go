@@ -28,26 +28,38 @@ type CalculatorSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of Calculator. Edit calculator_types.go to remove/update
+	// Size defines the number of Calculator instances
+	// The following markers will use OpenAPI v3 schema to validate the value
+	// More info: https://book.kubebuilder.io/reference/markers/crd-validation.html
+	// +kubebuilder:validation:Minimum=1
+	// +kubebuilder:validation:Maximum=3
+	// +kubebuilder:validation:ExclusiveMaximum=false
+	Size int32 `json:"size,omitempty"`
+
 	X int32 `json:"x,omitempty"`
 	Y int32 `json:"y,omitempty"`
-	// +operator-sdk:csv:customresourcedefinitions:type=spec
-	Size int32 `json:"size,omitempty"`
 }
 
 // CalculatorStatus defines the observed state of Calculator
 type CalculatorStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-	Sum       int32 `json:"sum"`
-	Processed bool  `json:"processed"`
+	// Represents the observations of a Calculator's current state.
+	// Calculator.status.conditions.type are: "Available", "Progressing", and "Degraded"
+	// Calculator.status.conditions.status are one of True, False, Unknown.
+	// Calculator.status.conditions.reason the value should be a CamelCase string and producers of specific
+	// condition types may define expected values and meanings for this field, and whether the values
+	// are considered a guaranteed API.
+	// Calculator.status.conditions.Message is a human readable message indicating details about the transition.
+	// For further information see: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties
+
+	Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
+	Result     int32              `json:"sum,omitempty" managed-by:"calc-operator"`
+	Processed  bool               `json:"processed,omitempty"`
 }
 
 //+kubebuilder:object:root=true
+//+kubebuilder:subresource:status
 
 // Calculator is the Schema for the calculators API
-// +kubebuilder:subresource:status
-// +operator-sdk:csv:customresourcedefinitions:resources={{Deployment,v1,calculator-deployment}}
 type Calculator struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

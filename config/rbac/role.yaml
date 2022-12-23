@@ -6,7 +6,19 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
-  - my.domain
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - calc.example.com
   resources:
   - calculators
   verbs:
@@ -18,16 +30,31 @@ rules:
   - update
   - watch
 - apiGroups:
-  - my.domain
+  - calc.example.com
   resources:
   - calculators/finalizers
   verbs:
   - update
 - apiGroups:
-  - my.domain
+  - calc.example.com
   resources:
   - calculators/status
   verbs:
   - get
   - patch
   - update
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+  - watch

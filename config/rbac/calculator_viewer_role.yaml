@@ -12,7 +12,7 @@ metadata:
   name: calculator-viewer-role
 rules:
 - apiGroups:
-  - my.domain
+  - calc.example.com
   resources:
   - calculators
   verbs:
@@ -20,7 +20,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - my.domain
+  - calc.example.com
   resources:
   - calculators/status
   verbs:
